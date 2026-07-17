@@ -1,8 +1,226 @@
-<p>Hello 大家好</p>
-<p>我是霸都丶傲天，这是我的个人网站。 </p>
-<p>很高兴你来到这里, 你可以在以下的网站找到我</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>田世龙 - 个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            overflow: hidden;
+            position: relative;
+        }
 
-<ul>
-  <li> <a href="https://www.zhihu.com/people/AJLoveChina">知乎</a> </li>
-  <li> <a href="http://hejie.nigeerhuo.com">我的博客(已经不更细了,现在在知乎写文章)</a> </li>
-</ul>
+        /* 动态网格背景 */
+        .grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            animation: gridMove 8s linear infinite;
+        }
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        /* 光晕 */
+        .glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+        }
+        .glow-1 {
+            top: -150px;
+            left: -100px;
+            background: rgba(0, 150, 255, 0.15);
+        }
+        .glow-2 {
+            bottom: -150px;
+            right: -100px;
+            background: rgba(0, 255, 200, 0.1);
+        }
+
+        /* 主卡片 */
+        .card {
+            position: relative;
+            z-index: 1;
+            width: 420px;
+            padding: 48px 40px 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 255, 0.12);
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 40px rgba(0, 150, 255, 0.05);
+        }
+
+        /* 头像 - 科技感光圈 */
+        .avatar-wrap {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px;
+        }
+        .avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(#00ffff, #0066ff, #00ffcc, #00ffff);
+            animation: spin 4s linear infinite;
+            mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #fff calc(100% - 1px));
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #fff calc(100% - 1px));
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00ffff, #66aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .affiliation {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.45);
+            margin: 4px 0 24px;
+            letter-spacing: 3px;
+        }
+
+        /* 分隔线 - 发光 */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0;
+            color: rgba(0, 255, 255, 0.25);
+            font-size: 12px;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.25), transparent);
+        }
+
+        .bio {
+            font-size: 14px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.65);
+            text-align: justify;
+        }
+
+        /* 打字光标效果 */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: #00ffff;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* 链接 - 科技按钮 */
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: 0.25s;
+        }
+        .links a:hover {
+            border-color: #00ffff;
+            color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* 底部终端小字 */
+        .terminal {
+            margin-top: 28px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: rgba(0, 255, 255, 0.2);
+            letter-spacing: 1px;
+        }
+        .terminal span {
+            color: rgba(0, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid"></div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="card">
+        <div class="avatar-wrap">
+            <img src="profile.jpg" alt="avatar">
+        </div>
+
+        <h1>田世龙</h1>
+        <p class="affiliation">DEEP LEARNING · MULTIMODAL · FOOD NUTRITION</p>
+
+        <div class="divider">◈</div>
+
+        <p class="bio">
+            专注于深度学习多模态的食品营养估计研究。<br>
+            用 AI 解读食物，让每一餐的营养一目了然。<span class="cursor"></span>
+        </p>
+
+<!--         <div class="links">
+            <a href="https://www.zhihu.com/people/AJLoveChina">⟐ 知乎</a>
+            <a href="http://hejie.nigeerhuo.com">⟐ 博客</a>
+        </div> -->
+
+        <p class="terminal"><span>$</span> echo "hello world"</p>
+    </div>
+</body>
+</html>
